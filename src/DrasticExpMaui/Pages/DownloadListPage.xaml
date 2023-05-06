@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DrasticExpMaui.Pages.DownloadListPage">
+    <ContentPage.Content>
+        <ScrollView>
+            <Border 
+                    Stroke="Black"
+                    StrokeThickness="1"
+                    StrokeShape="RoundRectangle 3">
+                
+                <Grid ColumnDefinitions="*, Auto">
+                    <VerticalStackLayout>
+                        <Label Text="Hoge" LineBreakMode="WordWrap" />
+                        <Label Text="Hoge" FontSize="Caption" LineBreakMode="WordWrap" />
+                    </VerticalStackLayout>
+                    <Grid Grid.Column="1">
+                        <Button VerticalOptions="Center" Text="Download"/>
+                    </Grid>
+                </Grid>
+            </Border>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>
