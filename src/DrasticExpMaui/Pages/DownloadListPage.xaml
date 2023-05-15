@@ -4,21 +4,29 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="DrasticExpMaui.Pages.DownloadListPage">
     <ContentPage.Content>
-        <VerticalStackLayout Spacing="15" BindableLayout.ItemsSource="{Binding Downloads}">
-            <BindableLayout.ItemTemplate>
-                <DataTemplate>
-                    <Grid  Margin="15" ColumnSpacing="5" ColumnDefinitions="*, *, Auto">
-                        <Grid RowSpacing="5" RowDefinitions="Auto, Auto">
-                            <Label FontAttributes="Bold" Text="{Binding Model.Name}" />
-                            <Label Grid.Row="1" FontSize="Caption" Text="{Binding Model.Description}" />
-                        </Grid>
-                        <ProgressBar IsVisible="{Binding DownloadStarted}" Progress="{Binding Precent}" Grid.Column="1" VerticalOptions="Center" />
-                        <Button MinimumWidthRequest="100" IsVisible="{Binding ShowDownloadButton}"  VerticalOptions="Center" Grid.Column="2" Text="Download"  Command="{Binding DownloadCommand}"/>
-                        <Button MinimumWidthRequest="100" IsVisible="{Binding ShowCancelButton}" VerticalOptions="Center" Grid.Column="2" Text="Cancel" BackgroundColor="Red" TextColor="White"  Command="{Binding CancelCommand}"/>
-                        <Button MinimumWidthRequest="100" IsVisible="{Binding ShowDeleteButton}" VerticalOptions="Center" Grid.Column="2" Text="Delete" BackgroundColor="Red" TextColor="White"  Command="{Binding DeleteCommand}"/>
-                    </Grid>
-                </DataTemplate>
-            </BindableLayout.ItemTemplate>
-        </VerticalStackLayout>
+        <Grid RowDefinitions="Auto, Auto">
+            <Grid ColumnSpacing="5" ColumnDefinitions="Auto, *" Margin="5">
+                <Label VerticalOptions="Center" Text="Model:" />
+                <Picker Grid.Column="1" ItemsSource="{Binding ModelService.AllModels}" ItemDisplayBinding="{Binding Name}"/>
+            </Grid>
+            <ScrollView Grid.Row="1">
+                <VerticalStackLayout Spacing="15" BindableLayout.ItemsSource="{Binding Downloads}">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate>
+                            <Grid  Margin="15" ColumnSpacing="5" ColumnDefinitions="*, *, Auto">
+                                <Grid RowSpacing="5" RowDefinitions="Auto, Auto">
+                                    <Label FontAttributes="Bold" Text="{Binding Model.Name}" />
+                                    <Label Grid.Row="1" FontSize="Caption" Text="{Binding Model.Description}" />
+                                </Grid>
+                                <ProgressBar IsVisible="{Binding DownloadStarted}" Progress="{Binding Precent}" Grid.Column="1" VerticalOptions="Center" />
+                                <Button MinimumWidthRequest="100" IsVisible="{Binding ShowDownloadButton}"  VerticalOptions="Center" Grid.Column="2" Text="Download"  Command="{Binding DownloadCommand}"/>
+                                <Button MinimumWidthRequest="100" IsVisible="{Binding ShowCancelButton}" VerticalOptions="Center" Grid.Column="2" Text="Cancel" BackgroundColor="Red" TextColor="White"  Command="{Binding CancelCommand}"/>
+                                <Button MinimumWidthRequest="100" IsVisible="{Binding ShowDeleteButton}" VerticalOptions="Center" Grid.Column="2" Text="Delete" BackgroundColor="Red" TextColor="White"  Command="{Binding DeleteCommand}"/>
+                            </Grid>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </VerticalStackLayout>
+            </ScrollView>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

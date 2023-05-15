@@ -3,10 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>UIDeviceFamily</key>
-	<array>
-		<integer>1</integer>
-		<integer>2</integer>
-	</array>
+    <array>
+        <integer>3</integer>
+    </array>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>arm64</string>
