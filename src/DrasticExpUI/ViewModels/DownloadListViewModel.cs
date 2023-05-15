@@ -23,9 +23,11 @@ namespace DrasticExpUI.ViewModels
             this.modelService = services.GetService(typeof(GgmlModelService)) as GgmlModelService ?? throw new NullReferenceException(nameof(GgmlModelService));
             foreach(var item in this.modelService.AllModels)
             {
-                this.Downloads.Add(new GgmlDownload(item, this.Dispatcher));
+                this.Downloads.Add(new GgmlDownload(item, this.modelService, this.Dispatcher));
             }
         }
+        
+        public GgmlModelService ModelService => this.modelService;
 
         public ObservableCollection<GgmlDownload> Downloads { get; } = new ObservableCollection<GgmlDownload>();
     }
@@ -53,16 +55,16 @@ namespace DrasticExpUI.ViewModels
             this.DownloadUrl = type switch
             {
                 GgmlType.Tiny => "https://huggingface.co/datasets/ggerganov/whisper.cpp/resolve/main/ggml-tiny.bin",
-                GgmlType.TinyEn => "https://huggingface.co/datasets/ggerganov/whisper.cpp/resolve/main/ggml-tiny-en.bin",
+                GgmlType.TinyEn => "https://huggingface.co/datasets/ggerganov/whisper.cpp/resolve/main/ggml-tiny.en.bin",
                 GgmlType.Base => "https://huggingface.co/datasets/ggerganov/whisper.cpp/resolve/main/ggml-base.bin",
-                GgmlType.BaseEn => "https://huggingface.co/datasets/ggerganov/whisper.cpp/resolve/main/ggml-base-en.bin",
+                GgmlType.BaseEn => "https://huggingface.co/datasets/ggerganov/whisper.cpp/resolve/main/ggml-base.en.bin",
                 GgmlType.Small => "https://huggingface.co/datasets/ggerganov/whisper.cpp/resolve/main/ggml-small.bin",
-                GgmlType.SmallEn => "https://huggingface.co/datasets/ggerganov/whisper.cpp/resolve/main/ggml-small-en.bin",
+                GgmlType.SmallEn => "https://huggingface.co/datasets/ggerganov/whisper.cpp/resolve/main/ggml-small.en.bin",
                 GgmlType.Medium => "https://huggingface.co/datasets/ggerganov/whisper.cpp/resolve/main/ggml-medium.bin",
-                GgmlType.MediumEn => "https://huggingface.co/datasets/ggerganov/whisper.cpp/resolve/main/ggml-medium-en.bin",
+                GgmlType.MediumEn => "https://huggingface.co/datasets/ggerganov/whisper.cpp/resolve/main/ggml-medium.en.bin",
                 GgmlType.LargeV1 => "https://huggingface.co/datasets/ggerganov/whisper.cpp/resolve/main/ggml-large-v1.bin",
                 GgmlType.Large => "https://huggingface.co/datasets/ggerganov/whisper.cpp/resolve/main/ggml-large.bin",
-                _ => throw new NotImplementedException(),
+                _ => throw new ArgumentOutOfRangeException(nameof(type), type, null)
             };
 
             // TODO: Add descriptions
@@ -109,9 +111,11 @@ namespace DrasticExpUI.ViewModels
         private double precent;
         private bool disposedValue;
         private IAppDispatcher dispatcher;
-
-        public GgmlDownload(GgmlModel model, IAppDispatcher dispatcher)
+        private GgmlModelService service;
+        
+        public GgmlDownload(GgmlModel model, GgmlModelService service, IAppDispatcher dispatcher)
         {
+            this.service = service;
             this.dispatcher = dispatcher;
             this.Model = model;
 
@@ -162,6 +166,8 @@ namespace DrasticExpUI.ViewModels
             this.DownloadCommand.RaiseCanExecuteChanged();
             this.CancelCommand.RaiseCanExecuteChanged();
             this.DeleteCommand.RaiseCanExecuteChanged();
+            
+            this.service.UpdateAvailableModels();
         }
 
         private void Download_DownloadProgressChanged(object? sender, DownloadProgressChangedEventArgs e)
