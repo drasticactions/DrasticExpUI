@@ -4,22 +4,21 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="DrasticExpMaui.Pages.DownloadListPage">
     <ContentPage.Content>
-        <ScrollView>
-            <Border 
-                    Stroke="Black"
-                    StrokeThickness="1"
-                    StrokeShape="RoundRectangle 3">
-                
-                <Grid ColumnDefinitions="*, Auto">
-                    <VerticalStackLayout>
-                        <Label Text="Hoge" LineBreakMode="WordWrap" />
-                        <Label Text="Hoge" FontSize="Caption" LineBreakMode="WordWrap" />
-                    </VerticalStackLayout>
-                    <Grid Grid.Column="1">
-                        <Button VerticalOptions="Center" Text="Download"/>
+        <VerticalStackLayout Spacing="15" BindableLayout.ItemsSource="{Binding Downloads}">
+            <BindableLayout.ItemTemplate>
+                <DataTemplate>
+                    <Grid  Margin="15" ColumnSpacing="5" ColumnDefinitions="*, *, Auto">
+                        <Grid RowSpacing="5" RowDefinitions="Auto, Auto">
+                            <Label FontAttributes="Bold" Text="{Binding Model.Name}" />
+                            <Label Grid.Row="1" FontSize="Caption" Text="{Binding Model.Description}" />
+                        </Grid>
+                        <ProgressBar IsVisible="{Binding DownloadStarted}" Progress="{Binding Precent}" Grid.Column="1" VerticalOptions="Center" />
+                        <Button MinimumWidthRequest="100" IsVisible="{Binding ShowDownloadButton}"  VerticalOptions="Center" Grid.Column="2" Text="Download"  Command="{Binding DownloadCommand}"/>
+                        <Button MinimumWidthRequest="100" IsVisible="{Binding ShowCancelButton}" VerticalOptions="Center" Grid.Column="2" Text="Cancel" BackgroundColor="Red" TextColor="White"  Command="{Binding CancelCommand}"/>
+                        <Button MinimumWidthRequest="100" IsVisible="{Binding ShowDeleteButton}" VerticalOptions="Center" Grid.Column="2" Text="Delete" BackgroundColor="Red" TextColor="White"  Command="{Binding DeleteCommand}"/>
                     </Grid>
-                </Grid>
-            </Border>
-        </ScrollView>
+                </DataTemplate>
+            </BindableLayout.ItemTemplate>
+        </VerticalStackLayout>
     </ContentPage.Content>
 </ContentPage>

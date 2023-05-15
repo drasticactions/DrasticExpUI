@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DrasticExpMaui.Controls.DownloadButton">
+    <Grid ColumnSpacing="5" ColumnDefinitions="*, Auto">
+        <ProgressBar VerticalOptions="Center" x:Name="DownloadProgressBar" />
+        <Button VerticalOptions="Center" Grid.Column="1" x:Name="DownloadBtn" Text="Download" Clicked="DownloadButton_Clicked"/>
+    </Grid>
+</ContentView>

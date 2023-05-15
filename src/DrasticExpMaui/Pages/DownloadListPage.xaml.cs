@@ -1,3 +1,4 @@
+using DrasticExpUI.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,5 +12,8 @@ public partial class DownloadListPage : ContentPage
     public DownloadListPage()
     {
         InitializeComponent();
+        this.BindingContext = this.Vm = App.Current.Handler.MauiContext.Services.GetService<DownloadListViewModel>();
     }
+
+    public DownloadListViewModel Vm;
 }

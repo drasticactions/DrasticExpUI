@@ -2,6 +2,7 @@
 <Application xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:DrasticExpMaui"
+             xmlns:tools="clr-namespace:DrasticExpMaui.Tools"
              x:Class="DrasticExpMaui.App">
     <Application.Resources>
         <ResourceDictionary>
@@ -9,6 +10,10 @@
                 <ResourceDictionary Source="Resources/Styles/Colors.xaml" />
                 <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
+            <tools:DownloadButtonConverter x:Key="DownloadButtonConverter" />
+            <tools:CancelButtonConverter x:Key="CancelButtonConverter" />
+            <tools:DeleteButtonConverter x:Key="DeleteButtonConverter" />
+            <tools:IsDownloadingConverter x:Key="IsDownloadingConverter"/>
         </ResourceDictionary>
     </Application.Resources>
 </Application>
